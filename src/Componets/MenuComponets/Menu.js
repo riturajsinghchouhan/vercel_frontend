@@ -7,8 +7,10 @@ import axios from 'axios';
 function Menu() {
   const [categories, setCategories] = useState([]);
 
+  const API = "https://lt-oimp.onrender.com";
+
   useEffect(() => {
-    axios.get("http://localhost:3001/category/fetch")
+    axios.get(`${API}/category/fetch`)
       .then(res => setCategories(res.data))
       .catch(err => console.error("Category fetch error:", err));
   }, []);
@@ -21,9 +23,14 @@ function Menu() {
         <div className="cake-grid">
           {categories.length > 0 ? (
             categories.map((cat, index) => (
-              <Link to={`/category/${cat.catnm}`} className="cake-card" key={index}>
+              <Link
+                to={`/category/${cat.catnm}`}
+                className="cake-card"
+                key={index}
+              >
+                {/* ⭐ FIXED IMAGE URL */}
                 <img
-                  src={`http://localhost:3001/uploads/caticons/${cat.caticonnm}`}
+                  src={`${API}/uploads/caticons/${cat.caticonnm}`}
                   alt={cat.catnm}
                 />
                 <h3>{cat.catnm} Cakes</h3>
