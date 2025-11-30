@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { userapi } from '../../Api_url';
 import { Link } from 'react-router-dom';
 import './Login.css';
 
@@ -10,6 +9,8 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+
+  // ✔ Direct backend API URL
   const userapi = "https://vercel-backend-peach-nine.vercel.app/user/";
 
   const handleLogin = () => {
@@ -18,36 +19,35 @@ function Login() {
       return;
     }
 
-  axios.post(`${userapi}login`, { email, password })
-  .then((res) => {
-    const userDetail = res.data.userList;
+    axios.post(`${userapi}login`, { email, password })
+      .then((res) => {
+        const userDetail = res.data.userList;
 
-    // ✅ Store token and user details
-    localStorage.setItem('token', res.data.token);
-    localStorage.setItem('name', userDetail.name);
-    localStorage.setItem('mobile', userDetail.mobile);
-    localStorage.setItem('address', userDetail.address);
-    localStorage.setItem('_id', userDetail._id);
-    localStorage.setItem('status', userDetail.status);
-    localStorage.setItem('password', userDetail.password);
-    localStorage.setItem('role', userDetail.role);
-    localStorage.setItem('info', userDetail.info);
+        // Store token and user details
+        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('name', userDetail.name);
+        localStorage.setItem('mobile', userDetail.mobile);
+        localStorage.setItem('address', userDetail.address);
+        localStorage.setItem('_id', userDetail._id);
+        localStorage.setItem('status', userDetail.status);
+        localStorage.setItem('password', userDetail.password);
+        localStorage.setItem('role', userDetail.role);
+        localStorage.setItem('info', userDetail.info);
 
-    // ✅ This line is IMPORTANT for Open.jsx to work
-    localStorage.setItem('user-info', JSON.stringify(userDetail));
+        // Needed for product details
+        localStorage.setItem('user-info', JSON.stringify(userDetail));
 
-    // ✅ Role-based redirect
-    if (userDetail.role === 'admin') {
-      window.location.href = '/admin';
-    } else {
-      window.location.href = '/';
-    }
-  })
-  .catch((err) => {
-    console.log(err);
-    setMessage('Login failed. Please try again.');
-  });
-
+        // Role-based redirect
+        if (userDetail.role === 'admin') {
+          window.location.href = '/admin';
+        } else {
+          window.location.href = '/';
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setMessage('Login failed. Please try again.');
+      });
   };
 
   return (
@@ -73,8 +73,7 @@ function Login() {
         </div>
         <button className="love btn-primary w-100" onClick={handleLogin}>Login</button>
         <p className="mt-3 text-center">
-          Don't have an account? <Link to='/register'>register</Link>
-          
+          Don't have an account? <Link to='/register'>Register</Link>
         </p>
       </div>
     </div>
