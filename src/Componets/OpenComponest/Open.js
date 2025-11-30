@@ -11,7 +11,7 @@ function Open() {
   const [message, setMessage] = useState('');
   const [user, setUser] = useState(null);
 
-  // ⭐ Load user
+  // ⭐ Load user from localStorage
   useEffect(() => {
     const storedUser =
       localStorage.getItem("user-info") || localStorage.getItem("name");
@@ -52,21 +52,20 @@ function Open() {
   const { price, discountedPrice } = getPriceByWeight();
   const discountPercentage = ((100 * (price - discountedPrice)) / price).toFixed(0);
 
-
   // ⭐ Handle Quantity
   const handleQuantityChange = (type) => {
     if (type === 'dec' && quantity > 1) setQuantity(quantity - 1);
     if (type === 'inc') setQuantity(quantity + 1);
   };
 
-  // ⭐ ADD TO CART LOGIC (MAIN CHANGE)
+  // ⭐ ADD TO CART LOGIC
   const handleAddToCart = () => {
     if (!user) {
       navigate('/login');
       return;
     }
 
-    // 🛒 Cart item object
+    // 🛒 Cart item
     const cartItem = {
       id: Date.now(),
       name: state.subcatnm,
@@ -77,38 +76,41 @@ function Open() {
       price: discountedPrice * quantity
     };
 
-    // 🛒 Save to cart in localStorage
+    // Save to localStorage
     const existingCart = JSON.parse(localStorage.getItem("cartItems") || "[]");
     existingCart.push(cartItem);
     localStorage.setItem("cartItems", JSON.stringify(existingCart));
 
-    // 🛒 Update cart count
-    const count = existingCart.length;
-    localStorage.setItem("cartCount", count.toString());
+    localStorage.setItem("cartCount", existingCart.length.toString());
 
-    // 🔁 Redirect to Cart Page
     navigate('/cart');
   };
 
   return (
     <div className="container py-5">
       <div className="row align-items-start">
+
+        {/* ⭐ CAKE IMAGE */}
         <div className="col-md-6 text-center">
           <img
-            src={`http://localhost:3001/uploads/subcaticons/${state.subcaticonnm}`}
+            src={`https://lt-oimp.onrender.com/uploads/subcaticons/${state.subcaticonnm}`}
             alt={state.subcatnm}
             className="img-fluid rounded"
           />
         </div>
 
+        {/* ⭐ RIGHT SIDE DETAILS */}
         <div className="col-md-6">
           <h3 className="fw-bold">{state.subcatnm}</h3>
+
           <h4 className="text-danger fw-semibold">
             ₹{(discountedPrice * quantity).toFixed(0)}
             <del className="text-muted fs-6 ms-2">
               ₹{(price * quantity).toFixed(0)}
             </del>
-            <span className="badge bg-success ms-2">{discountPercentage}% OFF</span>
+            <span className="badge bg-success ms-2">
+              {discountPercentage}% OFF
+            </span>
           </h4>
 
           <div className="row my-4">
@@ -145,7 +147,6 @@ function Open() {
               <button className="btn btn-outline-secondary" onClick={() => handleQuantityChange('inc')}>+</button>
             </div>
 
-            {/* ⭐ ADD TO CART BUTTON FIXED */}
             <button className="btn btn-dark px-4" onClick={handleAddToCart}>
               ADD TO CART
             </button>
@@ -154,6 +155,7 @@ function Open() {
           <div className="accordion mt-4" id="cakeDetails">
             <div className="accordion-item">
               <h2 className="accordion-header" id="headingDetails"></h2>
+
               <div
                 id="collapseDetails"
                 className="accordion-collapse collapse show"
@@ -168,6 +170,7 @@ function Open() {
                   <p><strong>Message:</strong> {message || 'N/A'}</p>
                 </div>
               </div>
+
             </div>
           </div>
 
