@@ -1,0 +1,10 @@
+.cake-card {
+  cursor: pointer;
+  transition: 0.3s;
+  text-decoration: none;
+  color: inherit;
+}
+.cake-card:hover {
+  transform: scale(1.02);
+} 
+
