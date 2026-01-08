@@ -1,54 +1,60 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import './Login.css';
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+import { userapi } from "../../Api_url";
+import "./Login.css";
 
 function Login() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
 
-  // ✔ Correct Render backend URL
-  const userapi = "https://lt-oimp.onrender.com/user/";
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
 
   const handleLogin = () => {
     if (!email || !password) {
-      setMessage('Email and password are required.');
+      setMessage("Email and password are required.");
       return;
     }
 
-    axios.post(`${userapi}login`, { email, password })
+    axios
+      .post(`${userapi}login`, { email, password })
       .then((res) => {
-        const userDetail = res.data.userList;
+        // ✅ BACKEND RESPONSE
+        const { token, user } = res.data;
 
-        // Store token and user details
-        localStorage.setItem('token', res.data.token);
-        localStorage.setItem('name', userDetail.name);
-        localStorage.setItem('mobile', userDetail.mobile);
-        localStorage.setItem('address', userDetail.address);
-        localStorage.setItem('_id', userDetail._id);
-        localStorage.setItem('status', userDetail.status);
-        localStorage.setItem('password', userDetail.password);
-        localStorage.setItem('role', userDetail.role);
-        localStorage.setItem('info', userDetail.info);
+        if (!token || !user) {
+          setMessage("Invalid server response");
+          return;
+        }
 
-        // Needed for other pages
-        localStorage.setItem('user-info', JSON.stringify(userDetail));
+        // ✅ Store token
+        localStorage.setItem("token", token);
 
-        // Role based redirect
-        if (userDetail.role === 'admin') {
-          window.location.href = '/admin';
+        // ✅ Store user details
+        localStorage.setItem("name", user.name);
+        localStorage.setItem("email", user.email);
+        localStorage.setItem("mobile", user.mobile);
+        localStorage.setItem("address", user.address);
+        localStorage.setItem("_id", user._id);
+        localStorage.setItem("status", user.status);
+        localStorage.setItem("role", user.role);
+        localStorage.setItem("info", user.info);
+
+        // ✅ Single source of truth
+        localStorage.setItem("user-info", JSON.stringify(user));
+
+        // ✅ Role-based redirect
+        if (user.role === "admin") {
+          navigate("/admin");
         } else {
-          window.location.href = '/';
+          navigate("/");
         }
       })
       .catch((err) => {
-        console.log(err);
-        setMessage('Login failed. Please try again.');
+        console.error("Login error:", err.response?.data || err);
+        setMessage("Login failed. Please try again.");
       });
-
   };
 
   return (
@@ -83,9 +89,8 @@ function Login() {
         </button>
 
         <p className="mt-3 text-center">
-          Don't have an account? <Link to='/register'>Register</Link>
+          Don&apos;t have an account? <Link to="/register">register</Link>
         </p>
-
       </div>
     </div>
   );
