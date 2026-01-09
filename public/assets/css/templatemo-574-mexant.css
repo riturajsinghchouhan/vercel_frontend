@@ -1598,89 +1598,7 @@ body {
   overflow-x: hidden;
 }
 
-@media (max-width: 992px) {
-  .header-area .main-nav .nav li:last-child {
-    display: none;
-  }
-  .header-area .main-nav .nav li ul li:last-child {
-    display: inline-block;
-  }
-  .header-area {
-    background-color: #212741;
-  }
-  .slide-inner .header-text {
-    width: 80%;
-  }
-  .simple-cta {
-    text-align: center;
-  }
-  section.simple-cta .buttons {
-    justify-content: center;
-  }
-  section.about-us .naccs .menu div,
-  section.service-details .naccs .menu div {
-    margin-right: 15px;
-    font-size: 15px;
-    padding: 15px 20px;
-  }
-  section.about-us .right-content {
-    margin-left: 0px;
-    margin-top: 60px;
-  }
-  section.calculator .left-image {
-    display: none;
-  }
-  .testimonials .item img {
-    max-width: 200px;
-    right: 50px;
-  }
-  section.partners .item {
-    margin:15px; 
-  }
-  section.top-section .accordions {
-    margin-left: 0px;
-    margin-top: 45px;
-  }
-  .what-we-do .left-content {
-    margin-right: 0px;
-    margin-bottom: 45px;
-  }
-  .main-services .left-image {
-    margin-right: 0px;
-    margin-bottom: 30px;
-  }
-  .main-services .right-text-content {
-    margin-left: 0px;
-  }
-  .main-services .right-image {
-    margin-left: 0px;
-    margin-top: 30px;
-  }
-  section.service-details ul.nacc li .left-image {
-    position: relative;
-    margin-right: 0px;
-    transform: translateY(0px);
-  }
-  section.service-details ul.nacc li .left-image img {
-    border-radius: 15px;
-  }
-  section.service-details ul.nacc li .right-content {
-    padding: 50px;
-    margin-left: 0px;
-  }
-  section.service-details ul.nacc li .right-content h4 {
-    margin-right: 0px;
-  }
-  section.service-details ul.nacc li.active {
-    display: inline-block;
-  }
-  section.service-details ul.nacc li {
-    display: none;
-  }
-  section.map .info-item {
-    margin-top: 30px;
-  }
-}
+
 
 @media (max-width: 767px) {
   .header-area .main-nav .logo {
@@ -1789,3 +1707,4 @@ body {
   color: #d2691e;
   font-weight: bold;
 }
+
