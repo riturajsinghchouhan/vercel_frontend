@@ -7,7 +7,7 @@ function Nav() {
   const [role, setRole] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
-  const [cartCount, setCartCount] = useState(0); // ⭐ Cart Count
+  const [cartCount, setCartCount] = useState(0);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -15,140 +15,123 @@ function Nav() {
   useEffect(() => {
     const storedRole = localStorage.getItem('role');
     setRole(storedRole?.toLowerCase());
-    setMenuOpen(false);
-    setOpenDropdown(null);
 
-    // ⭐ Load cart count from localStorage
-    const count = localStorage.getItem("cartCount");
+    const count = localStorage.getItem('cartCount');
     if (count) setCartCount(Number(count));
 
+    setMenuOpen(false);
+    setOpenDropdown(null);
   }, [location]);
 
   const handleLogout = () => {
     localStorage.clear();
     setRole(null);
+    setMenuOpen(false); // ✅ close mobile menu
     navigate('/login');
   };
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
-
-  const toggleDropdown = (name) => {
+  const toggleDropdown = (name) =>
     setOpenDropdown(openDropdown === name ? null : name);
-  };
 
   return (
     <>
       <Auth />
+
       <header className="header-area header-sticky">
         <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <nav className="main-nav">
+          <nav className="main-nav">
 
-                {/* Logo */}
-                {role !== 'admin' && (
-                  <Link to="/" className="logo">
-                    <img src="assets/images/L (2).png" alt="logo" />
-                  </Link>
-                )}
+            {/* LOGO */}
+            {role !== 'admin' && (
+              <Link to="/" className="logo">
+                <img src="assets/images/L (2).png" alt="logo" />
+              </Link>
+            )}
 
-                <ul className="nav" style={{ display: menuOpen ? 'block' : '' }}>
-                  
-                  {/* ======================= ADMIN MENU ======================= */}
-                  {role === 'admin' ? (
-                    <>
-                      <li><Link to="/admin">Admin Home</Link></li>
+            {/* NAV MENU */}
+            <ul className="nav" style={{ display: menuOpen ? 'block' : '' }}>
 
-                      <li
-                        className={`dropdown ${openDropdown === 'master' ? 'open' : ''}`}
-                        onClick={() => toggleDropdown('master')}
-                      >
-                        <span>Master Data ▼</span>
-                        <ul className="dropdown-menu">
-                          <li><Link to="/add-category">Add Category</Link></li>
-                          <li><Link to="/add-subcategory">Add Subcategory</Link></li>
-                          <li><Link to="/admin/manage-ads">Manage ADS</Link></li>
-                        </ul>
-                      </li>
+              {/* ================= ADMIN ================= */}
+              {role === 'admin' && (
+                <>
+                  <li><Link to="/admin">Admin Home</Link></li>
 
-                      <li
-                        className={`dropdown ${openDropdown === 'orders' ? 'open' : ''}`}
-                        onClick={() => toggleDropdown('orders')}
-                      >
-                        <span>Orders & User ▼</span>
-                        <ul className="dropdown-menu">
-                          <li><Link to="/manage-oders">Manage Orders</Link></li>
-                          <li><Link to="/all_custom_oders">Custom Cake Orders</Link></li>
-                          <li><Link to="/admin/contacts">Manage Contacts</Link></li>
-                          <li><Link to="/manage-users">Manage Users</Link></li>
-                        </ul>
-                      </li>
+                  <li
+                    className={`dropdown ${openDropdown === 'master' ? 'open' : ''}`}
+                    onClick={() => toggleDropdown('master')}
+                  >
+                    <span>Master Data ▼</span>
+                    <ul className="dropdown-menu">
+                      <li><Link to="/add-category">Add Category</Link></li>
+                      <li><Link to="/add-subcategory">Add Subcategory</Link></li>
+                      <li><Link to="/admin/manage-ads">Manage ADS</Link></li>
+                    </ul>
+                  </li>
 
-                      <li>
-                        <button
-                          onClick={handleLogout}
-                          className="btn btn-link nav-link"
-                          style={{ padding: 7.5 }}
-                        >
-                          Logout
-                        </button>
-                      </li>
-                    </>
-                  ) : (
+                  <li
+                    className={`dropdown ${openDropdown === 'orders' ? 'open' : ''}`}
+                    onClick={() => toggleDropdown('orders')}
+                  >
+                    <span>Orders & Users ▼</span>
+                    <ul className="dropdown-menu">
+                      <li><Link to="/manage-oders">Manage Orders</Link></li>
+                      <li><Link to="/all_custom_oders">Custom Cake Orders</Link></li>
+                      <li><Link to="/admin/contacts">Manage Contacts</Link></li>
+                      <li><Link to="/manage-users">Manage Users</Link></li>
+                    </ul>
+                  </li>
 
-                    /* ======================= USER MENU ======================= */
-                    <>
-                      <li><Link to="/">Home</Link></li>
-                      <li><Link to="/about">About Us</Link></li>
-                      <li><Link to="/contact">Contact Us</Link></li>
+                  <li className="logout-li">
+                    <button className="logout-btn" onClick={handleLogout}>
+                      Logout
+                    </button>
+                  </li>
+                </>
+              )}
 
-                      {role === 'user' && (
-                        <>
-                          <li><Link to="/orders">My Orders</Link></li>
-                          <li><Link to="/customcake">Customize Your Cake</Link></li>
-                          <li><Link to="/my-custom-orders">My Custom Cakes</Link></li>
+              {/* ================= USER ================= */}
+              {role === 'user' && (
+                <>
+                  <li><Link to="/">Home</Link></li>
+                  <li><Link to="/about">About Us</Link></li>
+                  <li><Link to="/contact">Contact Us</Link></li>
+                  <li><Link to="/orders">My Orders</Link></li>
+                  <li><Link to="/customcake">Customize Your Cake</Link></li>
+                  <li><Link to="/my-custom-orders">My Custom Cakes</Link></li>
 
-                          {/* ⭐ Add to Cart Button */}
-                          <li>
-                            <Link to="/cart" className="cart-link">
-                              🛒 Cart <span className="cart-badge">{cartCount}</span>
-                            </Link>
-                          </li>
+                  <li>
+                    <Link to="/cart" className="cart-link">
+                      🛒 Cart <span className="cart-badge">{cartCount}</span>
+                    </Link>
+                  </li>
 
-                          <li>
-                            <button
-                              onClick={handleLogout}
-                              className="btn btn-link nav-link"
-                              style={{ padding: 8 }}
-                            >
-                              Logout
-                            </button>
-                          </li>
-                        </>
-                      )}
+                  <li className="logout-li">
+                    <button className="logout-btn" onClick={handleLogout}>
+                      Logout
+                    </button>
+                  </li>
+                </>
+              )}
 
-                      {!role && (
-                        <>
-                          <li><Link to="/login">Login</Link></li>
-                          <li><Link to="/register">Register</Link></li>
-                          
-                        </>
-                      )}
-                    </>
-                  )}
-                </ul>
+              {/* ================= GUEST ================= */}
+              {!role && (
+                <>
+                  <li><Link to="/login">Login</Link></li>
+                  <li><Link to="/register">Register</Link></li>
+                </>
+              )}
+            </ul>
 
-                {/* Menu Toggle Button */}
-                <a
-                  className={`menu-trigger ${menuOpen ? 'active' : ''}`}
-                  onClick={toggleMenu}
-                >
-                  <span>Menu</span>
-                </a>
-
-              </nav>
+            {/* MOBILE MENU BUTTON */}
+            <div
+              className={`menu-trigger ${menuOpen ? 'active' : ''}`}
+              onClick={toggleMenu}
+            >
+              <span>Menu</span>
             </div>
-          </div>
+
+          </nav>
         </div>
       </header>
     </>
