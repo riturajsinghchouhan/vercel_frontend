@@ -49,7 +49,7 @@ function AddToCart() {
                 <tr key={item.id}>
                   <td>
                     <img
-                      src={`http://localhost:3001/uploads/subcaticons/${item.image}`}
+                      src={`https://backup-2uhe.onrender.com/uploads/subcaticons/${item.image}`}
                       className="cart-img"
                       alt="cake"
                     />

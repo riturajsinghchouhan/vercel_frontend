@@ -1,4 +1,4 @@
-export const userapi="http://localhost:3001/user/";
-export const categoryApi ="http://localhost:3001/category/";
-export const subcategoryApi ="http://localhost:3001/subcategory/";
-export const orderapi = "http://localhost:3001/order/";
+export const userapi="https://backup-2uhe.onrender.com/user/";
+export const categoryApi ="https://backup-2uhe.onrender.com/category/";
+export const subcategoryApi ="https://backup-2uhe.onrender.com/subcategory/";
+export const orderapi = "https://backup-2uhe.onrender.com/order/";

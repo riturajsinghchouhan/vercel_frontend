@@ -7,7 +7,7 @@ function AdminHome() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/notifications")
+      .get("https://backup-2uhe.onrender.com/notifications")
       .then((res) => setNotifications(res.data))
       .catch((err) => console.error("Notification error:", err));
   }, []);

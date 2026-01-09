@@ -27,7 +27,7 @@ function UserCustomOrders() {
       setLoading(true);
 
       const res = await fetch(
-        `http://localhost:3001/customcake/user/${userId}?page=${page}&limit=10`
+        `https://backup-2uhe.onrender.com/customcake/user/${userId}?page=${page}&limit=10`
       );
 
       const data = await res.json();
@@ -78,7 +78,7 @@ function UserCustomOrders() {
 
               {o.image && (
                 <img
-                  src={`http://localhost:3001/${o.image}`}
+                  src={`https://backup-2uhe.onrender.com/${o.image}`}
                   alt="Custom cake design"
                 />
               )}

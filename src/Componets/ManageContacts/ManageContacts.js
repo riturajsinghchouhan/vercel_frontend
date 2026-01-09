@@ -6,7 +6,7 @@ function ManageContacts() {
   const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:3001/contact/all')
+    axios.get('https://backup-2uhe.onrender.com/contact/all')
       .then((res) => setContacts(res.data))
       .catch((err) => console.log(err));
   }, []);

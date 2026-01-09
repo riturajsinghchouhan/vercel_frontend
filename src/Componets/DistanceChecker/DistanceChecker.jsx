@@ -28,7 +28,7 @@ const DistanceChecker = () => {
     setResult(null);
 
     try {
-      const res = await axios.post("http://localhost:3001/distance/order", {
+      const res = await axios.post("https://backup-2uhe.onrender.com/distance/order", {
         userAddress,
       });
       setResult(res.data);

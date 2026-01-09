@@ -10,7 +10,7 @@ function CategoryPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/subcategory/fetch?catnm=${catnm}`)
+    axios.get(`https://backup-2uhe.onrender.com/subcategory/fetch?catnm=${catnm}`)
       .then(res => setSubcategories(res.data))
       .catch(err => console.error("Fetch error:", err));
   }, [catnm]);
@@ -71,7 +71,7 @@ function CategoryPage() {
                 {/* Image moves to product */}
                 <div onClick={() => handleClick(sub)} style={{ cursor: 'pointer' }}>
                   <img
-                    src={`http://localhost:3001/uploads/subcaticons/${sub.subcaticonnm}`}
+                    src={`https://backup-2uhe.onrender.com/uploads/subcaticons/${sub.subcaticonnm}`}
                     alt={sub.subcatnm}
                   />
                 </div>

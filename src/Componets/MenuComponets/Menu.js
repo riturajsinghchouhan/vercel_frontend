@@ -8,7 +8,7 @@ function Menu() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3001/category/fetch")
+    axios.get("https://backup-2uhe.onrender.com/category/fetch")
       .then(res => setCategories(res.data))
       .catch(err => console.error("Category fetch error:", err));
   }, []);
@@ -23,7 +23,7 @@ function Menu() {
             categories.map((cat, index) => (
               <Link to={`/category/${cat.catnm}`} className="cake-card" key={index}>
                 <img
-                  src={`http://localhost:3001/uploads/caticons/${cat.caticonnm}`}
+                  src={`https://backup-2uhe.onrender.com/uploads/caticons/${cat.caticonnm}`}
                   alt={cat.catnm}
                 />
                 <h3>{cat.catnm} Cakes</h3>

@@ -31,7 +31,7 @@ const AdsCarousel = () => {
 
   return (
     <div className="ads-carousel-container">
-      {ad.image && <img src={`http://localhost:3001/${ad.image}`} alt={ad.title} />}
+      {ad.image && <img src={`https://backup-2uhe.onrender.com/${ad.image}`} alt={ad.title} />}
       <div className="ads-carousel-info">
         <h3>{ad.title}</h3>
         <p>{ad.description}</p>

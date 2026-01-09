@@ -14,7 +14,7 @@ const ManageAds = () => {
 
   // Fetch all ads
   const fetchAds = async () => {
-    const res = await axios.get("http://localhost:3001/ads/fetch");
+    const res = await axios.get("https://backup-2uhe.onrender.com/ads/fetch");
     if(res.data.success) setAds(res.data.ads);
   };
 

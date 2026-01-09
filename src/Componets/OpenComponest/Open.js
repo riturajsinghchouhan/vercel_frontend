@@ -95,7 +95,7 @@ function Open() {
       <div className="row align-items-start">
         <div className="col-md-6 text-center">
           <img
-            src={`http://localhost:3001/uploads/subcaticons/${state.subcaticonnm}`}
+            src={`https://backup-2uhe.onrender.com/uploads/subcaticons/${state.subcaticonnm}`}
             alt={state.subcatnm}
             className="img-fluid rounded"
           />

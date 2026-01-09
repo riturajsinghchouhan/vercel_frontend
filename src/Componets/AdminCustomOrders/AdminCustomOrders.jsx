@@ -21,7 +21,7 @@ function AdminCustomOrders() {
   // Fetch orders with filters & pagination
   const loadOrders = () => {
     axios
-      .get("http://localhost:3001/customcake/all", {
+      .get("https://backup-2uhe.onrender.com/customcake/all", {
         params: {
           page,
           limit: 10,
@@ -62,7 +62,7 @@ function AdminCustomOrders() {
 
   const updateStatus = (id, status) => {
     axios
-      .put(`http://localhost:3001/customcake/status/${id}`, { status })
+      .put(`https://backup-2uhe.onrender.com/customcake/status/${id}`, { status })
       .then(() => {
         setOrders((prev) =>
           prev.map((order) =>
@@ -169,11 +169,11 @@ function AdminCustomOrders() {
                 <td>
                   {order.image ? (
                     <img
-                      src={`http://localhost:3001/${order.image}`}
+                      src={`https://backup-2uhe.onrender.com/${order.image}`}
                       alt="Cake"
                       className="cake-thumbnail"
                       onClick={() =>
-                        setModalImage(`http://localhost:3001/${order.image}`)
+                        setModalImage(`https://backup-2uhe.onrender.com/${order.image}`)
                       }
                     />
                   ) : (

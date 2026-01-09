@@ -21,7 +21,7 @@ const AdsDisplay = () => {
     <div className="user-ads-container">
       {ads.map(ad => (
         <div className="user-ad-card" key={ad._id}>
-          {ad.image && <img src={`http://localhost:3001/${ad.image}`} alt={ad.title} />}
+          {ad.image && <img src={`https://backup-2uhe.onrender.com/${ad.image}`} alt={ad.title} />}
           <h4>{ad.title}</h4>
           <p>{ad.description}</p>
         </div>
