@@ -79,7 +79,7 @@
 
 /* ============= MOBILE RESPONSIVE ============= */
 
-@media (max-width: 768px) {
+@media (max-width: 991px) {
 
   /* Dropdown expands full width */
   .nav .dropdown {
