@@ -23,7 +23,6 @@ pnpm-debug.log*
 Thumbs.db
 
 # ===== Editor / IDE =====
-.vscode/
 .idea/
 *.suo
 *.ntvs*
@@ -38,3 +37,7 @@ Thumbs.db
 # ===== Misc =====
 .env
 .env.*
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+.gitignore
