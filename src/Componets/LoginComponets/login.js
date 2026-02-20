@@ -1,72 +1,70 @@
+// src/pages/Login.js
+
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { userapi } from "../../Api_url";
+import { Eye, EyeOff } from "lucide-react";
 import "./Login.css";
-import { Eye } from 'lucide-react';
-import { EyeOff } from 'lucide-react';
+
 function Login() {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [open,setopen]=useState(false)
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       setMessage("Email and password are required.");
       return;
     }
 
-    axios
-      .post(`${userapi}login`, { email, password })
-      .then((res) => {
-        // ✅ BACKEND RESPONSE
-        const { token, user } = res.data;
+    try {
+      setLoading(true);
 
-        if (!token || !user) {
-          setMessage("Invalid server response");
-          return;
-        }
+      const res = await axios.post(`${userapi}login`, { email, password });
 
-        // ✅ Store token
-        localStorage.setItem("token", token);
+      const { token, user } = res.data;
 
-        // ✅ Store user details
-        localStorage.setItem("name", user.name);
-        localStorage.setItem("email", user.email);
-        localStorage.setItem("mobile", user.mobile);
-        localStorage.setItem("address", user.address);
-        localStorage.setItem("_id", user._id);
-        localStorage.setItem("status", user.status);
-        localStorage.setItem("role", user.role);
-        localStorage.setItem("info", user.info);
+      if (!token || !user) {
+        setMessage("Invalid server response");
+        setLoading(false);
+        return;
+      }
 
-        // ✅ Single source of truth
-        localStorage.setItem("user-info", JSON.stringify(user));
+      localStorage.setItem("token", token);
+      localStorage.setItem("user-info", JSON.stringify(user));
 
-        // ✅ Role-based redirect
-        if (user.role === "admin") {
-          navigate("/admin");
-        } else {
-          navigate("/");
-        }
-      })
-      .catch((err) => {
-        console.error("Login error:", err.response?.data || err);
-        setMessage("Login failed. Please try again.");
-      });
+      if (user.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/");
+      }
+
+    } catch (err) {
+      console.error("Login error:", err.response?.data || err);
+      setMessage("Login failed. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-      <div className="form-box shadow p-4 rounded bg-white">
-        <h2 className="text-center mb-4">Login</h2>
+    <div className="login-page">
+      <div className="form-box">
 
-        {message && <div className="text-danger mb-2">{message}</div>}
+        <h2>Login</h2>
 
-        <div className="mb-3">
+        {message && (
+          <div className="message">
+            {message}
+          </div>
+        )}
+
+        <div className="input-group">
           <label>Email</label>
           <input
             type="email"
@@ -76,35 +74,38 @@ function Login() {
           />
         </div>
 
-          <div style={{ position: "relative" }}>
-        <input
-          type={open ? "text" : "password"}
-          className="form-control"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <div className="input-group">
+          <label>Password</label>
 
-        <span
-          onClick={() => setopen(!open)}
-          style={{
-            position: "absolute",
-            right: "10px",
-            top: "50%",
-            transform: "translateY(-50%)",
-            cursor: "pointer"
-          }}
+          <div className="password-wrapper">
+            <input
+              type={open ? "text" : "password"}
+              className="form-control"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <span
+              className="password-toggle"
+              onClick={() => setOpen(!open)}
+            >
+              {open ? <EyeOff size={18} /> : <Eye size={18} />}
+            </span>
+          </div>
+        </div>
+
+        <button
+          className="login-btn"
+          onClick={handleLogin}
+          disabled={loading}
         >
-          {open ? <EyeOff size={18} /> : <Eye size={18} />}
-        </span>
-      </div>
-
-        <button className="love btn-primary w-100" onClick={handleLogin}>
-          Login
+          {loading ? "Logging in..." : "Login"}
         </button>
 
-        <p className="mt-3 text-center">
-          Don&apos;t have an account? <Link to="/register">register</Link>
+        <p className="register-text">
+          Don't have an account? <Link to="/register">Register</Link>
         </p>
+
       </div>
     </div>
   );

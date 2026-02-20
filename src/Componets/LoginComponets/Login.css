@@ -1,9 +1,118 @@
+/* Full Page Background */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+  padding: 20px;
+}
 
+/* Card Container */
 .form-box {
   width: 100%;
   max-width: 400px;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
-.love{
-  background-color:#fa6306 ;
-  border-color: #ed7f17e7;
+
+/* Heading */
+.form-box h2 {
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+/* Input Group */
+.input-group {
+  margin-bottom: 18px;
+}
+
+.input-group label {
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+}
+
+/* Input Styling */
+.form-control {
+  width: 100%;
+  height: 45px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: #6c63ff;
+  box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.15);
+  outline: none;
+}
+
+/* Password Wrapper */
+.password-wrapper {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #777;
+  transition: 0.2s;
+}
+
+.password-toggle:hover {
+  color: #000;
+}
+
+/* Button */
+.login-btn {
+  width: 100%;
+  height: 45px;
+  border-radius: 8px;
+  background-color: #ffa763;
+  color: white;
+  border: none;
+  font-weight: 500;
+  transition: 0.2s ease;
+  cursor: pointer;
+}
+
+.login-btn:hover {
+  background-color: #d6804feb;
+}
+
+.login-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Message */
+.message {
+  color: red;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+/* Register Text */
+.register-text {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.register-text a {
+  color: #f97a19;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.register-text a:hover {
+  text-decoration: underline;
 }
