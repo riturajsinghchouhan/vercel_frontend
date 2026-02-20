@@ -11,7 +11,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [open,setopen]=useState("false")
+  const [open,setopen]=useState(false)
 
   const handleLogin = () => {
     if (!email || !password) {
@@ -76,18 +76,27 @@ function Login() {
           />
         </div>
 
-        <div className="mb-3">
-          <label>Password</label>
-          <input
-            type={open?"text":"password"}
-            placeholder="12345.."
-            className="form-control"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <span onClick={()=> setopen(!open)}></span>
-          {open?<Eye/>:<EyeOff/>}
-        </div>
+          <div style={{ position: "relative" }}>
+        <input
+          type={open ? "text" : "password"}
+          className="form-control"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <span
+          onClick={() => setopen(!open)}
+          style={{
+            position: "absolute",
+            right: "10px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            cursor: "pointer"
+          }}
+        >
+          {open ? <EyeOff size={18} /> : <Eye size={18} />}
+        </span>
+      </div>
 
         <button className="love btn-primary w-100" onClick={handleLogin}>
           Login
