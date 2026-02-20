@@ -51,64 +51,55 @@ function Login() {
       setLoading(false);
     }
   };
+return (
+  <div id="login-page">
+    <div id="login-card">
 
-  return (
-    <div className="login-page">
-      <div className="form-box">
+      <h2 id="login-title">Login</h2>
 
-        <h2>Login</h2>
+      {message && <div id="login-message">{message}</div>}
 
-        {message && (
-          <div className="message">
-            {message}
-          </div>
-        )}
-
-        <div className="input-group">
-          <label>Email</label>
-          <input
-            type="email"
-            className="form-control"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-
-        <div className="input-group">
-          <label>Password</label>
-
-          <div className="password-wrapper">
-            <input
-              type={open ? "text" : "password"}
-              className="form-control"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-
-            <span
-              className="password-toggle"
-              onClick={() => setOpen(!open)}
-            >
-              {open ? <EyeOff size={18} /> : <Eye size={18} />}
-            </span>
-          </div>
-        </div>
-
-        <button
-          className="login-btn"
-          onClick={handleLogin}
-          disabled={loading}
-        >
-          {loading ? "Logging in..." : "Login"}
-        </button>
-
-        <p className="register-text">
-          Don't have an account? <Link to="/register">Register</Link>
-        </p>
-
+      <div id="login-field">
+        <label>Email</label>
+        <input
+          type="email"
+          id="login-input"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
       </div>
+
+      <div id="login-field">
+        <label>Password</label>
+
+        <div id="password-container">
+          <input
+            type={open ? "text" : "password"}
+            id="login-input"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+
+          <span
+            id="password-toggle"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <EyeOff size={18} /> : <Eye size={18} />}
+          </span>
+        </div>
+      </div>
+
+      <button id="login-btn" onClick={handleLogin}>
+        Login
+      </button>
+
+      <p id="register-text">
+        Don't have an account? <Link to="/register">Register</Link>
+      </p>
+
     </div>
-  );
+  </div>
+);
 }
 
 export default Login;
