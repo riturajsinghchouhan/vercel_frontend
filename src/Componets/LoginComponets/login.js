@@ -3,13 +3,15 @@ import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 import { userapi } from "../../Api_url";
 import "./Login.css";
-
+import { Eye } from 'lucide-react';
+import { EyeOff } from 'lucide-react';
 function Login() {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [open,setopen]=useState("false")
 
   const handleLogin = () => {
     if (!email || !password) {
@@ -77,11 +79,14 @@ function Login() {
         <div className="mb-3">
           <label>Password</label>
           <input
-            type="password"
+            type={open?"text":"password"}
+            placeholder="12345.."
             className="form-control"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <span onClick={()=> setopen(!open)}></span>
+          {open?<Eye/>:<EyeOff/>}
         </div>
 
         <button className="love btn-primary w-100" onClick={handleLogin}>
